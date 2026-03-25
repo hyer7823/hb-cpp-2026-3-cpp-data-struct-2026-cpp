@@ -12,40 +12,41 @@ using namespace std;
 
 typedef vector<int>::size_type vec_sz;
 
-int quartile_calc(vector<int> data, int quartile) {
-	int size = data.size();
-	vec_sz q = size * (quartile / 100);      
-	
-	double median;
-	median = size % 2 == 0 ?    // if 조건
-		(homework[mid_pt] + homework[mid_pt - 1]) / 2 :  // if 참
-		homework[mid_pt];   // else 거짓
-
-	// 75%
-}
-
-void print_quartiles(vector<int> data) {
-           // 데이터를 오름차순으로 정렬
-	sort(data.begin(), data.end());
-
-	int q1 = quartile_calc(data, 25);     // 제1사분위수(25%)
-	int q2 = quartile_calc(data, 50);     // 제2사분위수(50%)
-	int q3 = quartile_calc(data, 75);     // 제3사분위수(75%)
-
-	cout <<
-		"Q1: " << q1 << endl <<
-		"Q2 (중앙값): " << q2 << endl <<
-		"Q3: " << q3 << endl;
-}
 
 int main(void) {
+	// 프로그램 설명 하기
+	cout << "Enter all values, then E0F: ";
 
-	// 과제 점수의 중앙값을 구함
-	vec_sz mid_pt = size / 2;
-	double median;
-	median = size % 2 == 0 ?    // if 조건
-		(homework[mid_pt] + homework[mid_pt - 1]) / 2 :  // if 참
-		homework[mid_pt];   // else 거짓
+	vector<int> val;
+	int in;
+
+	while (cin >> in) {
+		val.push_back(in);
+	}
+
+	// 오류 체킹
+	vec_sz size = val.size();
+	if (size == 0) {
+		cout << "No values. Try again!" << endl;
+		return 1;    // 오류
+	}
+
+	// 정렬
+	sort(val.begin(), val.end());
+
+	vec_sz q1 = size / 4;     // 제1사분위수(25%)
+	vec_sz q2 = size / 2;     // 제2사분위수(50%)
+	vec_sz q3 = size / 4 * 3;     // 제3사분위수(75%)
+
+	int q1_val, q2_val, q3_val;
+	q1_val = size % 4 == 0 ? (val[q1] + val[q1 - 1]) / 2: val[q1];
+	q2_val = size % 2 == 0 ? (val[q2] + val[q2 - 1]) / 2: val[q2];
+	q3_val = 3 * size % 4 == 0 ? (val[q3] + val[q3 - 1]) / 2: val[q3];
+
+	cout <<
+		"Q1: " << q1_val << endl <<
+		"Q2 (중앙값): " << q2_val << endl <<
+		"Q3: " << q3_val << endl;
 
 
 	return 0;
